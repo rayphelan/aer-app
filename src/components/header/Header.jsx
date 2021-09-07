@@ -17,7 +17,7 @@ const Link = styled.a`
   text-decoration: none;
 `;
 
-const Header = () => {
+export const Header = () => {
   return (
     <Section>
       <Link href="/">
@@ -26,5 +26,3 @@ const Header = () => {
     </Section>
   );
 }
-
-export default Header;

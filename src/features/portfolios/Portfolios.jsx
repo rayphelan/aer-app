@@ -1,4 +1,5 @@
 import React from 'react';
+import { Container } from '../../components';
 import styled from 'styled-components';
 
 const Section = styled.section`
@@ -13,14 +14,12 @@ const Section = styled.section`
   }
 `;
 
-const Portfolios = () => {
+export const Portfolios = () => {
   return (
-    <div className="container">
+    <Container>
       <Section>
         <h1>Portfolios</h1>
       </Section>
-    </div>
+    </Container>
   );
 };
-
-export default Portfolios;

@@ -1,11 +1,17 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { selectAllAircraft } from './aircraftSlice';
+import SingleAircraft from './SingleAircraft';
 
-export const Aircraft = () => {
-  const aircraft = useSelector(selectAllAircraft);
+export const Aircraft = ({aircraft}) => {
 
-  console.log('aircraft init', aircraft);
-
-  return <div>Aircraft</div>;
+  return (
+    <>
+      {
+        aircraft && aircraft.data.map((aircraft) => {
+          return (
+            <SingleAircraft aircraft={aircraft} key={aircraft.regCode} />
+          );
+        })
+      }
+    </>
+  );
 };

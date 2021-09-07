@@ -40,7 +40,7 @@ const Links = styled(NavLink)`
   }
 `;
 
-const Navbar = () => {
+export const Navbar = () => {
   return (
     <Nav data-testid="navbar">
       <div className="nav-link">
@@ -54,5 +54,3 @@ const Navbar = () => {
     </Nav>
   );
 };
-
-export default Navbar;
