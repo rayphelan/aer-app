@@ -31,6 +31,5 @@ export const portfoliosSlice = createSlice({
   },
 });
 
-export const { fetchAllPortfolios } = portfoliosSlice.actions;
 export const selectAllPortfolios = (state) => state.portfolios;
 export default portfoliosSlice.reducer;

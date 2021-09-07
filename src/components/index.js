@@ -7,3 +7,4 @@ export * from './loader/Loader';
 export * from './section/Section';
 export * from './navbar/Navbar';
 export * from './header/Header';
+export * from './title/Title';

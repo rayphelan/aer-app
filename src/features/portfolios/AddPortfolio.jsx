@@ -10,14 +10,9 @@ import {
   Loader,
   Form,
   Button,
-  Section
+  Section,
+  Title,
 } from '../../components';
-import styled from 'styled-components';
-
-const Title = styled.h2`
-  display: flex;
-  justify-content: center;
-`;
 
 export const AddPortfolio = () => {
   const history = useHistory();
@@ -39,10 +34,11 @@ export const AddPortfolio = () => {
 
   const handleCheckboxChange = (event) => {
     const regCode = event.target.value;
-    if (selectedAircraft.includes(regCode)) {
-      setSelectedAircraft(selectedAircraft.filter(aircraft => aircraft !== regCode));
+    const aircraftDetails = aircraft.data.find((aircraft) => aircraft.regCode === regCode);
+    if (selectedAircraft.includes(aircraftDetails)) {
+      setSelectedAircraft(selectedAircraft.filter(aircraft => aircraft !== aircraftDetails));
     } else {
-      setSelectedAircraft([...selectedAircraft, regCode]);
+      setSelectedAircraft([...selectedAircraft, aircraftDetails]);
     }
   }
 
@@ -77,7 +73,6 @@ export const AddPortfolio = () => {
       <Title>Add Portfolio</Title>
       {
         isLoading
-        // || portfolios.status === 'loading'
           ? <Loader />
           :
           <Section>
