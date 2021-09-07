@@ -1,4 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { Aircraft } from '../aircraft/Aircraft';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectAllAircraft, fetchAircraft } from '../aircraft/aircraftSlice';
+import { addPortfolio, selectAllPortfolios } from './portfoliosSlice';
+import { useHistory } from 'react-router-dom';
 import {
   Container,
   Input,
@@ -7,11 +12,6 @@ import {
   Button,
   Section
 } from '../../components';
-import { Aircraft } from '../aircraft/Aircraft';
-import { useSelector, useDispatch } from 'react-redux';
-import { selectAllAircraft, fetchAircraft } from '../aircraft/aircraftSlice';
-import { addPortfolio, selectAllPortfolios } from './portfoliosSlice';
-import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Title = styled.h2`
@@ -22,11 +22,16 @@ const Title = styled.h2`
 export const AddPortfolio = () => {
   const history = useHistory();
   const dispatch = useDispatch();
+
   const aircraft = useSelector(selectAllAircraft);
   const portfolios = useSelector(selectAllPortfolios);
 
   const [title, setTitle] = useState('');
   const [selectedAircraft, setSelectedAircraft] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const canSave = Boolean(title) && Boolean(selectedAircraft.length !== 0);
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
@@ -43,6 +48,7 @@ export const AddPortfolio = () => {
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
+    setIsSubmitted(true);
     dispatch(addPortfolio({
       title,
       selectedAircraft,
@@ -50,15 +56,19 @@ export const AddPortfolio = () => {
   };
 
   useEffect(() => {
-    if (portfolios.status === 'success') {
+    setIsLoading(aircraft.status === 'loading' || portfolios.status === 'loading');
+    if (isSubmitted && aircraft.status !== 'loading' && portfolios.status !== 'loading') {
       history.push('/portfolios');
     }
-  }, [portfolios, history]);
+  }, [portfolios.status, aircraft.status, isLoading, isSubmitted, history]);
 
   useEffect(() => {
     const noAircraftLoaded = aircraft?.data.length === 0;
     if (noAircraftLoaded) {
       dispatch(fetchAircraft());
+    }
+    else {
+      setIsLoading(false);
     }
   }, [dispatch, aircraft]);
 
@@ -66,8 +76,8 @@ export const AddPortfolio = () => {
     <Container>
       <Title>Add Portfolio</Title>
       {
-        aircraft.status === 'loading' || aircraft.data.length === 0
-        || (portfolios.status === 'loading')
+        isLoading
+        // || portfolios.status === 'loading'
           ? <Loader />
           :
           <Section>
@@ -75,7 +85,7 @@ export const AddPortfolio = () => {
               <div>Portfolio Title:</div>
               <Input type="text" value={title} placeholder="Please enter a title" onChange={handleTitleChange} />
               <Aircraft aircraft={aircraft} selectedAircraft={selectedAircraft} checkboxChange={handleCheckboxChange} />
-              <Button type="submit">Submit</Button>
+              <Button type="submit" disabled={!canSave}>Submit</Button>
             </Form>
           </Section>
       }

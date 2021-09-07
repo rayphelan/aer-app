@@ -7,8 +7,8 @@ const StyledButton = styled.button`
   padding: 1rem;
 `;
 
-export const Button = ({children}) => {
+export const Button = ({children, disabled}) => {
   return (
-    <StyledButton>{ children }</StyledButton>
+    <StyledButton disabled={disabled}>{ children }</StyledButton>
   );
 };
