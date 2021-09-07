@@ -1,14 +1,16 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { AircraftView } from '../aircraft/AircraftView';
 import {
   Container,
   Title,
   Section,
+  Button,
+  Links,
 } from '../../components';
 
 export const DeletePortfolio = ({ match }) => {
   const { portfolioId } = match.params;
-
   const portfolio = useSelector(state => state.portfolios.data.find(portfolio => portfolio.id === portfolioId));
   const { title, selectedAircraft } = portfolio;
 
@@ -23,8 +25,16 @@ export const DeletePortfolio = ({ match }) => {
 
   return (
     <Container>
-      <Title>Delete</Title>
-      <Section></Section>
+      <Section>
+        <p>Do you want to delete this portfolio?</p>
+        <Button>Delete Portfolio</Button>
+        <p>Click here if you wish to cancel</p>
+        <Links to="/portfolios">Cancel</Links>
+      </Section>
+      <Title>{title}</Title>
+      <Section>
+          <AircraftView aircraft={selectedAircraft} />
+      </Section>
     </Container>
   );
 };

@@ -8,3 +8,5 @@ export * from './section/Section';
 export * from './navbar/Navbar';
 export * from './header/Header';
 export * from './title/Title';
+export * from './links/Links';
+export * from './table-styles/TableStyle';

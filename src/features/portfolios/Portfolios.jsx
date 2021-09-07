@@ -2,70 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { selectAllPortfolios } from './portfoliosSlice';
 import { useTable, usePagination } from 'react-table';
-import { Container, Section, Loader, Title } from '../../components';
-import { NavLink } from 'react-router-dom';
-import styled from 'styled-components';
-
-const Links = styled(NavLink)`
-  text-decoration: none;
-  padding: 5px 10px;
-  color: greenyellow;
-  display: flex;
-  justify-content: center;
-  border: 1px solid rgba(173, 255, 47, 0.5);
-  background-color: #222;
-  border-radius: 4px;
-  margin: 0;
-
-  &:visited {
-    color: greenyellow;
-  }
-
-  &:active {
-    color: black;
-    font-weight: bold;
-    background-color: #45ff2f;
-  }
-
-  &:hover {
-    border-color: white;
-  }
-`;
-
-const Styles = styled.div`
-  padding: 1rem;
-
-  table {
-    border-spacing: 0;
-    border: 1px solid rgba(173, 255, 47, 0.8);
-    border-radius: 4px;
-    width: 100%;
-
-    tr {
-      :last-child {
-        td {
-          border-bottom: 0;
-        }
-      }
-    }
-
-    th,
-    td {
-      margin: 0;
-      padding: 0.5rem;
-      border-bottom: 1px solid rgba(173, 255, 47, 0.5);
-      border-right: 1px solid rgba(173, 255, 47, 0.5);
-
-      :last-child {
-        border-right: 0;
-      }
-    }
-  }
-
-  .pagination {
-    padding: 0.5rem;
-  }
-`;
+import { Container, Section, Loader, Title, Links, TableStyle } from '../../components';
 
 export const Portfolios = () => {
   const portfolios = useSelector(selectAllPortfolios);
@@ -122,7 +59,7 @@ export const Portfolios = () => {
 
   const tableInitialState = {
     hiddenColumns: ['portfolioId'],
-    pageSize: 2,
+    pageSize: 5,
   };
   const tableInstance = useTable(
     {
@@ -162,7 +99,7 @@ export const Portfolios = () => {
         <Loader />
       ) : (
         <Section>
-          <Styles>
+          <TableStyle>
           <table {...getTableProps()}>
             <thead>
               {headerGroups.map((headerGroup) => (
@@ -234,14 +171,14 @@ export const Portfolios = () => {
                 setPageSize(Number(e.target.value));
               }}
             >
-              {[10, 20, 30, 40, 50].map((pageSize) => (
+              {[5, 10, 20, 30, 40, 50].map((pageSize) => (
                 <option key={pageSize} value={pageSize}>
                   Show {pageSize}
                 </option>
               ))}
             </select>
           </div>
-          </Styles>
+          </TableStyle>
         </Section>
       )}
     </Container>

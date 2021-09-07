@@ -24,16 +24,13 @@ export const ViewPortfolio = ({ match }) => {
 
   return (
     <Container>
-      <Section>
-        <p>To generate random flight data, click this button</p>
-        <Button>Generate Flight Data</Button>
-      </Section>
       <Title>{title}</Title>
       <Section>
           <AircraftView aircraft={selectedAircraft} />
       </Section>
       <Section>
         <h3>Flight Data:</h3>
+        <Button>Generate Random Flight Data</Button>
       </Section>
     </Container>
   );
