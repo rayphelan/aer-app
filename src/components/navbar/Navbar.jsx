@@ -21,7 +21,7 @@ const Links = styled(NavLink)`
   }
 
   border: 1px solid rgba(173, 255, 47, 0.5);
-  background-color: black;
+  background-color: #222;
   border-radius: 4px;
   margin: 0 10px;
 

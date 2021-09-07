@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Aircraft } from '../aircraft/Aircraft';
+import { AircraftSelect } from '../aircraft/AircraftSelect';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectAllAircraft, fetchAircraft } from '../aircraft/aircraftSlice';
 import { addPortfolio, selectAllPortfolios } from './portfoliosSlice';
@@ -79,7 +79,7 @@ export const AddPortfolio = () => {
             <Form onSubmit={handleFormSubmit}>
               <div>Portfolio Title:</div>
               <Input type="text" value={title} placeholder="Please enter a title" onChange={handleTitleChange} />
-              <Aircraft aircraft={aircraft} selectedAircraft={selectedAircraft} checkboxChange={handleCheckboxChange} />
+              <AircraftSelect aircraft={aircraft} selectedAircraft={selectedAircraft} checkboxChange={handleCheckboxChange} />
               <Button type="submit" disabled={!canSave}>Submit</Button>
             </Form>
           </Section>

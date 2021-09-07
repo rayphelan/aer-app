@@ -1,7 +1,7 @@
 import React from 'react';
 import { Checkbox } from '../../components'
 
-export const Aircraft = ({
+export const AircraftSelect = ({
   aircraft,
   checkboxChange,
 }) => {

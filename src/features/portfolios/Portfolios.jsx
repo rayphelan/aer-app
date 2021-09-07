@@ -2,15 +2,44 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { selectAllPortfolios } from './portfoliosSlice';
 import { useTable, usePagination } from 'react-table';
-import { Container, Section, Loader, Title, Button } from '../../components';
+import { Container, Section, Loader, Title } from '../../components';
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
+
+const Links = styled(NavLink)`
+  text-decoration: none;
+  padding: 5px 10px;
+  color: greenyellow;
+  display: flex;
+  justify-content: center;
+  border: 1px solid rgba(173, 255, 47, 0.5);
+  background-color: #222;
+  border-radius: 4px;
+  margin: 0;
+
+  &:visited {
+    color: greenyellow;
+  }
+
+  &:active {
+    color: black;
+    font-weight: bold;
+    background-color: #45ff2f;
+  }
+
+  &:hover {
+    border-color: white;
+  }
+`;
 
 const Styles = styled.div`
   padding: 1rem;
 
   table {
     border-spacing: 0;
-    border: 1px solid black;
+    border: 1px solid rgba(173, 255, 47, 0.8);
+    border-radius: 4px;
+    width: 100%;
 
     tr {
       :last-child {
@@ -24,8 +53,8 @@ const Styles = styled.div`
     td {
       margin: 0;
       padding: 0.5rem;
-      border-bottom: 1px solid black;
-      border-right: 1px solid black;
+      border-bottom: 1px solid rgba(173, 255, 47, 0.5);
+      border-right: 1px solid rgba(173, 255, 47, 0.5);
 
       :last-child {
         border-right: 0;
@@ -75,17 +104,17 @@ export const Portfolios = () => {
       {
         Header: 'Delete',
         accessor: 'delete',
-        Cell: ({ value }) => <Button>Delete</Button>,
+        Cell: ({ value }) => <Links to={`/portfolio/delete/${value}`}>Delete</Links>,
       },
       {
         Header: 'Edit',
         accessor: 'edit',
-        Cell: ({ value }) => <Button>Edit</Button>,
+        Cell: ({ value }) => <Links to={`/portfolio/edit/${value}`}>Edit</Links>,
       },
       {
         Header: 'View',
         accessor: 'view',
-        Cell: ({ value }) => <Button>View</Button>,
+        Cell: ({ value }) => <Links to={`/portfolio/${value}`}>View</Links>,
       },
     ],
     []
@@ -123,14 +152,8 @@ export const Portfolios = () => {
 
   useEffect(() => {
     setIsLoading(portfolios.status === 'loading');
-    console.log('portfolios', portfolios);
-
     setTableData(prepareData(portfolios.data));
   }, [portfolios]);
-
-  useEffect(() => {
-    console.log('tableData', tableData);
-  }, [tableData]);
 
   return (
     <Container>
