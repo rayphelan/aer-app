@@ -5,7 +5,6 @@ export const fetchAircraft = createAsyncThunk(
   'aircraft/fetchAircraft',
   async () => {
     const response = await fetchAllAircraft();
-    console.log('fetchAircraft', response);
     return response.data;
   }
 );
@@ -19,11 +18,7 @@ const initialState = {
 export const aircraftSlice = createSlice({
   name: 'aircraft',
   initialState,
-  reducers: {
-    aircraftByRegCode: (state, action) => {
-      state.data.find((aircraft) => aircraft.regCode === action.payload);
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchAircraft.pending, (state) => {
@@ -35,8 +30,6 @@ export const aircraftSlice = createSlice({
       });
   },
 });
-
-export const { aircraftByRegCode } = aircraftSlice.actions;
 
 export const selectAllAircraft = (state) => state.aircraft;
 

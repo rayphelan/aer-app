@@ -69,7 +69,7 @@ const Indicator = styled.div`
   }
 `;
 
-export const Checkbox = (
+export const Checkbox = ({
   value,
   checked,
   onChange,
@@ -77,7 +77,7 @@ export const Checkbox = (
   id,
   label,
   disabled
-) => {
+}) => {
   return (
     <Label htmlFor={id} disabled={disabled}>
       {label}

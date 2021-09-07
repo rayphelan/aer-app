@@ -6,10 +6,6 @@ import { store } from './app/store';
 import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
 
-// Fetch aircraft
-import { fetchAircraft } from './features/aircraft/aircraftSlice';
-store.dispatch(fetchAircraft());
-
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

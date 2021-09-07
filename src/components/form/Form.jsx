@@ -7,8 +7,8 @@ const StyledForm = styled.form`
   padding: 0;
 `;
 
-export const Form = ({children}) => {
+export const Form = ({children, onSubmit}) => {
   return (
-    <StyledForm>{ children }</StyledForm>
+    <StyledForm onSubmit={onSubmit}>{ children }</StyledForm>
   );
 };

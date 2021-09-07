@@ -1,14 +1,22 @@
 import React from 'react';
-import SingleAircraft from './SingleAircraft';
+import { Checkbox } from '../../components'
 
-export const Aircraft = ({aircraft}) => {
+export const Aircraft = ({
+  aircraft,
+  checkboxChange,
+}) => {
 
   return (
     <>
       {
-        aircraft && aircraft.data.map((aircraft) => {
+        aircraft && aircraft.data.map(({regCode, type}) => {
           return (
-            <SingleAircraft aircraft={aircraft} key={aircraft.regCode} />
+            <div key={regCode}>
+              <label>
+                <Checkbox onChange={checkboxChange} value={regCode} />
+                {`${regCode} - (${type.name} ${type.code})`}
+              </label>
+          </div>
           );
         })
       }

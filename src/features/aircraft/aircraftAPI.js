@@ -1,4 +1,4 @@
-// Simulate API behavior making async requests
+import { ASYNC_WAIT } from '../../app/constants';
 
 const aircraftTypes = [
   {
@@ -41,14 +41,13 @@ const aircraftList = [
 ];
 
 export const fetchAllAircraft = () => {
-  console.log('aircraftList', aircraftList);
   return new Promise((resolve) => {
     setTimeout(
       () =>
         resolve({
           data: aircraftList,
         }),
-      2000
+      ASYNC_WAIT
     );
   });
 };

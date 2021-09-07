@@ -7,10 +7,10 @@ const StyledInput = styled.input`
   width: 100%;
 `;
 
-export const Input = () => {
+export const Input = ({placeholder, onChange}) => {
   return (
     <>
-      <StyledInput />
+      <StyledInput placeholder={placeholder} onChange={onChange} />
     </>
   );
 };

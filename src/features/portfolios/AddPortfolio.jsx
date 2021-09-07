@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Container,
   Input,
@@ -7,10 +7,11 @@ import {
   Button,
   Section
 } from '../../components';
-
 import { Aircraft } from '../aircraft/Aircraft';
-import { useSelector } from 'react-redux';
-import { selectAllAircraft } from '../aircraft/aircraftSlice';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectAllAircraft, fetchAircraft } from '../aircraft/aircraftSlice';
+import { addPortfolio, selectAllPortfolios } from './portfoliosSlice';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Title = styled.h2`
@@ -19,28 +20,61 @@ const Title = styled.h2`
 `;
 
 export const AddPortfolio = () => {
+  const history = useHistory();
+  const dispatch = useDispatch();
   const aircraft = useSelector(selectAllAircraft);
-  console.log('aircraft init', aircraft);
+  const portfolios = useSelector(selectAllPortfolios);
 
   const [title, setTitle] = useState('');
+  const [selectedAircraft, setSelectedAircraft] = useState([]);
 
-  const handleChange = (event) => {
+  const handleTitleChange = (event) => {
     setTitle(event.target.value);
-    console.log('Title', title);
   };
+
+  const handleCheckboxChange = (event) => {
+    const regCode = event.target.value;
+    if (selectedAircraft.includes(regCode)) {
+      setSelectedAircraft(selectedAircraft.filter(aircraft => aircraft !== regCode));
+    } else {
+      setSelectedAircraft([...selectedAircraft, regCode]);
+    }
+  }
+
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+    dispatch(addPortfolio({
+      title,
+      selectedAircraft,
+    }));
+  };
+
+  useEffect(() => {
+    if (portfolios.status === 'success') {
+      history.push('/portfolios');
+    }
+  }, [portfolios, history]);
+
+  useEffect(() => {
+    const noAircraftLoaded = aircraft?.data.length === 0;
+    if (noAircraftLoaded) {
+      dispatch(fetchAircraft());
+    }
+  }, [dispatch, aircraft]);
 
   return (
     <Container>
       <Title>Add Portfolio</Title>
       {
-        !aircraft || aircraft.status === 'loading'
+        aircraft.status === 'loading' || aircraft.data.length === 0
+        || (portfolios.status === 'loading')
           ? <Loader />
           :
           <Section>
-            <Form>
+            <Form onSubmit={handleFormSubmit}>
               <div>Portfolio Title:</div>
-              <Input type="text" value={title} placeholder="Please enter a title" onChange={handleChange} />
-              <Aircraft aircraft={aircraft} />
+              <Input type="text" value={title} placeholder="Please enter a title" onChange={handleTitleChange} />
+              <Aircraft aircraft={aircraft} selectedAircraft={selectedAircraft} checkboxChange={handleCheckboxChange} />
               <Button type="submit">Submit</Button>
             </Form>
           </Section>
