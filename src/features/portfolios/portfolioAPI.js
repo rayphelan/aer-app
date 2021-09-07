@@ -11,3 +11,13 @@ export const savePortfolio = (portfolio) => {
     }, ASYNC_WAIT);
   });
 };
+
+export const updatePortfolio = (portfolio) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      return resolve({
+        data: portfolio,
+      });
+    }, ASYNC_WAIT);
+  });
+};

@@ -13,8 +13,6 @@ export const ViewPortfolio = ({ match }) => {
   const portfolio = useSelector(state => state.portfolios.data.find(portfolio => portfolio.id === portfolioId));
   const { title, selectedAircraft } = portfolio;
 
-  console.log('portfolio', portfolio, selectedAircraft);
-
   if (!portfolio) {
     return (
       <Container>
