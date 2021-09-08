@@ -17,6 +17,8 @@ const StyledContainer = styled.div`
   background-color: black;
 `;
 
+const countries = new Intl.DisplayNames(['en'], {type: 'region'});
+
 export const Flight = ({flight}) => {
 
   const {
@@ -39,13 +41,13 @@ export const Flight = ({flight}) => {
   return (
     <StyledContainer>
       <div>
-        <White>Flight Number:</White> {flightNumber} <White>Reg:</White> {regCode}
+        <White>Flight Number:</White> {flightNumber} <White>Registration:</White> {regCode}
       </div>
       <div>
-        <White>Departure:</White> {departureAirportDetails.name} - {departureAirportDetails.iso}
+        <White>Departure:</White> {departureAirportDetails.name} - {countries.of(departureAirportDetails.iso)}
       </div>
       <div>
-        <White>Arrival:</White> {arrivalAirportDetails.name} - {arrivalAirportDetails.iso}
+        <White>Arrival:</White> {arrivalAirportDetails.name} - {countries.of(arrivalAirportDetails.iso)}
       </div>
       <div>
         <White>Duration:</White> {duration}
