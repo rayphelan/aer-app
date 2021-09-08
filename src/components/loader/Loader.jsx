@@ -15,7 +15,7 @@ const blink = keyframes`
 export const Animation = styled.div`
   text-align: center;
   span {
-    color: greenyellow;
+    color: rgba(7, 120, 240, 1);
     display: inline-block;
     margin-left: 4px;
     margin-right: 4px;

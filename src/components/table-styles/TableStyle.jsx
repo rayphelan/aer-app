@@ -5,9 +5,10 @@ export const TableStyle = styled.div`
 
   table {
     border-spacing: 0;
-    border: 1px solid rgba(173, 255, 47, 0.8);
-    border-radius: 4px;
+    border: 1px solid rgba(7, 120, 240, 1);
+    border-radius: 2px;
     width: 100%;
+    background-color: black;
 
     tr {
       :last-child {
@@ -21,8 +22,8 @@ export const TableStyle = styled.div`
     td {
       margin: 0;
       padding: 0.5rem;
-      border-bottom: 1px solid rgba(173, 255, 47, 0.5);
-      border-right: 1px solid rgba(173, 255, 47, 0.5);
+      border-bottom: 1px solid rgba(7, 120, 240, 1);
+      border-right: 1px solid rgba(7, 120, 240, 1);
 
       :last-child {
         border-right: 0;

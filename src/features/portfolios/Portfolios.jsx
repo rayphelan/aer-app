@@ -92,6 +92,15 @@ export const Portfolios = () => {
     setTableData(prepareData(portfolios.data));
   }, [portfolios]);
 
+  if (portfolios?.data?.length === 0) {
+    return (
+      <Container>
+        <Title>Portfolios</Title>
+        <Section>There are no Portfolios</Section>
+      </Container>
+    );
+  }
+
   return (
     <Container>
       <Title>Portfolios</Title>

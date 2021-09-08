@@ -6,11 +6,11 @@ const StyledButton = styled.button`
   margin: 0;
   padding: 0.5rem;
   text-transform: uppercase;
-  border: 1px solid rgba(173, 255, 47, 0.5);
+  border: 1px solid rgba(7, 120, 240, 0.5);
   background-color: #222;
-  border-radius: 4px;
+  border-radius: 2px;
   margin: 0 1rem;
-  color: greenyellow;
+  color: rgba(7, 120, 240, 1);
   min-width: 100px;
   &:hover {
     border-color: white;
@@ -18,7 +18,7 @@ const StyledButton = styled.button`
   &:active {
     color: black;
     font-weight: bold;
-    background-color: #45ff2f;
+    background-color: rgba(7, 120, 240, 1);
   }
   &:disabled {
     color: orange;

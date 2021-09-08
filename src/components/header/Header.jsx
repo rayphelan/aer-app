@@ -21,7 +21,7 @@ export const Header = () => {
   return (
     <Section>
       <Link href="/">
-        <H1>Aer App</H1>
+        <H1 className="glow">Aer App</H1>
       </Link>
     </Section>
   );

@@ -1,5 +1,9 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { savePortfolio, updatePortfolio } from './portfolioAPI';
+import {
+  savePortfolio,
+  updatePortfolio,
+  removePortfolio,
+} from './portfolioAPI';
 
 export const addPortfolio = createAsyncThunk(
   'portfolios/addPortfolio',
@@ -13,6 +17,14 @@ export const editPortfolio = createAsyncThunk(
   'portfolios/editPortfolio',
   async (portfolio) => {
     const response = await updatePortfolio(portfolio);
+    return response.data;
+  }
+);
+
+export const deletePortfolio = createAsyncThunk(
+  'portfolios/deletePortfolio',
+  async (portfolio) => {
+    const response = await removePortfolio(portfolio);
     return response.data;
   }
 );
@@ -49,6 +61,14 @@ export const portfoliosSlice = createSlice({
           portfolioFound.title = title;
           portfolioFound.selectedAircraft = selectedAircraft;
         }
+      })
+      .addCase(deletePortfolio.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(deletePortfolio.fulfilled, (state, action) => {
+        state.status = 'success';
+        const { id } = action.payload;
+        state.data = state.data.filter((portfolio) => portfolio.id !== id);
       });
   },
 });

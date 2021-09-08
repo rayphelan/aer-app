@@ -7,6 +7,7 @@ import {
   Section,
   Button,
   Links,
+  Loader,
 } from '../../components';
 
 export const DeletePortfolio = ({ match }) => {
