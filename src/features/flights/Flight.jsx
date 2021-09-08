@@ -12,7 +12,7 @@ const StyledContainer = styled.div`
   flex-direction: column;
   padding: 1rem;
   margin: 0.5rem;
-  width: 100%;
+  width: 50%;
   border: 1px solid #222;
   background-color: black;
 `;
