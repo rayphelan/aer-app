@@ -1,4 +1,5 @@
 export * from './button/Button';
+export * from './button/DeleteButton';
 export * from './checkbox/Checkbox';
 export * from './container/Container';
 export * from './form/Form';

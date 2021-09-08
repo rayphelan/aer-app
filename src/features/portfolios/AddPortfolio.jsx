@@ -80,7 +80,11 @@ export const AddPortfolio = () => {
               <div>Portfolio Title:</div>
               <Input type="text" value={title} placeholder="Please enter a title" onChange={handleTitleChange} />
               <AircraftSelect aircraft={aircraft} selectedAircraft={selectedAircraft} checkboxChange={handleCheckboxChange} />
-              <Button type="submit" disabled={!canSave}>Submit</Button>
+              
+              <Section>
+                <Button type="submit" disabled={!canSave}>Submit</Button>
+              </Section>
+              
             </Form>
           </Section>
       }

@@ -35,10 +35,15 @@ const GlobalStyle = createGlobalStyle`
     color: rgba(7, 120, 240, 1);
     font-size: 0.8rem;
 
-    & input, select {
+    & input, select, button {
       background-color: #000000;
       border: 1px rgba(7, 120, 240, 1) solid;
       color: rgba(7, 120, 240, 1);
+
+      &:disabled {
+        border: 1px solid black;
+        color: grey;
+      }
     }
   }
 

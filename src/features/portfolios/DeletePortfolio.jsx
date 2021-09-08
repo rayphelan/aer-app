@@ -1,41 +1,84 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState, useEffect } from 'react';
 import { AircraftView } from '../aircraft/AircraftView';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectAllAircraft, fetchAircraft } from '../aircraft/aircraftSlice';
+import { deletePortfolio, selectAllPortfolios } from './portfoliosSlice';
+import { useHistory } from 'react-router-dom';
 import {
   Container,
-  Title,
-  Section,
-  Button,
-  Links,
   Loader,
+  DeleteButton,
+  Section,
+  Title,
+  Links,
+  Form,
 } from '../../components';
 
 export const DeletePortfolio = ({ match }) => {
   const { portfolioId } = match.params;
-  const portfolio = useSelector(state => state.portfolios.data.find(portfolio => portfolio.id === portfolioId));
-  const { title, selectedAircraft } = portfolio;
 
-  if (!portfolio) {
-    return (
-      <Container>
-        <Title>404 Error</Title>
-        <Section>Portfolio not found</Section>
-      </Container>
-    );
-  }
+  const history = useHistory();
+  const dispatch = useDispatch();
+
+  const aircraft = useSelector(selectAllAircraft);
+  const portfolios = useSelector(selectAllPortfolios);
+  const portfolio = useSelector(state => state.portfolios.data.find(portfolio => portfolio.id === portfolioId));
+
+  // const { title, selectedAircraft } = portfolio;
+
+  const [isLoading, setIsLoading] = useState(true);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+    setIsSubmitted(true);
+    dispatch(deletePortfolio({
+      id: portfolioId,
+    }));
+  };
+
+  useEffect(() => {
+    setIsLoading(aircraft.status === 'loading' || portfolios.status === 'loading');
+    if (isSubmitted && aircraft.status !== 'loading' && portfolios.status !== 'loading') {
+      history.push(`/portfolios`);
+    }
+  }, [portfolios.status, aircraft.status, isLoading, isSubmitted, history, portfolioId]);
+
+  useEffect(() => {
+    const noAircraftLoaded = aircraft?.data.length === 0;
+    if (noAircraftLoaded) {
+      dispatch(fetchAircraft());
+    }
+    else {
+      setIsLoading(false);
+    }
+  }, [dispatch, aircraft]);
 
   return (
     <Container>
-      <Section>
-        <p>Do you want to delete this portfolio?</p>
-        <Button>Delete Portfolio</Button>
-        <p>Click here if you wish to cancel</p>
-        <Links to="/portfolios">Cancel</Links>
-      </Section>
-      <Title>{title}</Title>
-      <Section>
-          <AircraftView aircraft={selectedAircraft} />
-      </Section>
-    </Container>
+    <Title>Confirm Delete</Title>
+    {
+      isLoading
+        ? <Loader />
+        :
+        <>
+          <Section>
+            
+            <Form onSubmit={handleFormSubmit}>
+              <DeleteButton type="submit">Delete Portfolio</DeleteButton>
+              <p>Click here if you wish to cancel</p>
+            <Links to="/portfolios">Do not delete</Links>
+            </Form>
+
+
+          </Section>
+          
+          <Title>{portfolio?.title}</Title>
+          <Section>
+              <AircraftView aircraft={portfolio?.selectedAircraft} />
+          </Section>
+        </>
+    }
+  </Container>
   );
 };
