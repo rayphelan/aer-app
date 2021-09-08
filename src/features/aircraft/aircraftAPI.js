@@ -4,10 +4,12 @@ const aircraftTypes = [
   {
     code: 'A320-200',
     name: 'Airbus',
+    speed: 829,
   },
   {
     code: 'B737-800',
     name: 'Boeing',
+    speed: 839,
   },
 ];
 

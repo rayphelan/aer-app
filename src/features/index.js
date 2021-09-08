@@ -8,3 +8,4 @@ export * from './portfolios/AddPortfolio';
 export * from './portfolios/EditPortfolio';
 export * from './portfolios/ViewPortfolio';
 export * from './portfolios/DeletePortfolio';
+export * from './flights/FlightDataGenerator';

@@ -1,1 +1,1 @@
-export const ASYNC_WAIT = 1000;
+export const ASYNC_WAIT = 300;

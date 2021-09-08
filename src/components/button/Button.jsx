@@ -27,8 +27,8 @@ const StyledButton = styled.button`
   }
 `;
 
-export const Button = ({children, disabled}) => {
+export const Button = ({children, disabled, onClick}) => {
   return (
-    <StyledButton disabled={disabled}>{ children }</StyledButton>
+    <StyledButton disabled={disabled} onClick={onClick}>{ children }</StyledButton>
   );
 };

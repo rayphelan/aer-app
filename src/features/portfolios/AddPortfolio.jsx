@@ -26,7 +26,7 @@ export const AddPortfolio = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const canSave = Boolean(title) && Boolean(selectedAircraft.length !== 0);
+  const canSave = Boolean(title);
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);

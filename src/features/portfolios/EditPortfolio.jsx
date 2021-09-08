@@ -29,7 +29,7 @@ export const EditPortfolio = ({ match }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const canSave = Boolean(title) && Boolean(selectedAircraft.length !== 0);
+  const canSave = Boolean(title);
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
@@ -93,7 +93,7 @@ export const EditPortfolio = ({ match }) => {
               <div>Portfolio Title:</div>
               <Input type="text" value={title} placeholder="Please enter a title" onChange={handleTitleChange} />
               <AircraftSelect aircraft={aircraft} selectedAircraft={selectedAircraft} checkboxChange={handleCheckboxChange} />
-              <Button type="submit" disabled={!canSave}>Submit</Button>
+              <Button type="submit" disabled={!canSave}>Save</Button>
             </Form>
           </Section>
       }

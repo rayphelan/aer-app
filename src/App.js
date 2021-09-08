@@ -8,6 +8,7 @@ import {
   ViewPortfolio,
   EditPortfolio,
   DeletePortfolio,
+  FlightDataGenerator,
 } from './features';
 
 function App() {
@@ -30,6 +31,11 @@ function App() {
         <Route
           path="/portfolio/delete/:portfolioId"
           component={DeletePortfolio}
+          exact
+        />
+        <Route
+          path="/flight-data-generator"
+          component={FlightDataGenerator}
           exact
         />
       </Switch>
