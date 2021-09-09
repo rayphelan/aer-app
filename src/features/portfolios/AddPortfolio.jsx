@@ -26,7 +26,7 @@ export const AddPortfolio = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const canSave = Boolean(title);
+  const canSave = Boolean(title.trim());
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
@@ -34,26 +34,38 @@ export const AddPortfolio = () => {
 
   const handleCheckboxChange = (event) => {
     const regCode = event.target.value;
-    const aircraftDetails = aircraft.data.find((aircraft) => aircraft.regCode === regCode);
+    const aircraftDetails = aircraft.data.find(
+      (aircraft) => aircraft.regCode === regCode
+    );
     if (selectedAircraft.includes(aircraftDetails)) {
-      setSelectedAircraft(selectedAircraft.filter(aircraft => aircraft !== aircraftDetails));
+      setSelectedAircraft(
+        selectedAircraft.filter((aircraft) => aircraft !== aircraftDetails)
+      );
     } else {
       setSelectedAircraft([...selectedAircraft, aircraftDetails]);
     }
-  }
+  };
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
     setIsSubmitted(true);
-    dispatch(addPortfolio({
-      title,
-      selectedAircraft,
-    }));
+    dispatch(
+      addPortfolio({
+        title,
+        selectedAircraft,
+      })
+    );
   };
 
   useEffect(() => {
-    setIsLoading(aircraft.status === 'loading' || portfolios.status === 'loading');
-    if (isSubmitted && aircraft.status !== 'loading' && portfolios.status !== 'loading') {
+    setIsLoading(
+      aircraft.status === 'loading' || portfolios.status === 'loading'
+    );
+    if (
+      isSubmitted &&
+      aircraft.status !== 'loading' &&
+      portfolios.status !== 'loading'
+    ) {
       history.push('/portfolios');
     }
   }, [portfolios.status, aircraft.status, isLoading, isSubmitted, history]);
@@ -62,8 +74,7 @@ export const AddPortfolio = () => {
     const noAircraftLoaded = aircraft?.data.length === 0;
     if (noAircraftLoaded) {
       dispatch(fetchAircraft());
-    }
-    else {
+    } else {
       setIsLoading(false);
     }
   }, [dispatch, aircraft]);
@@ -71,23 +82,37 @@ export const AddPortfolio = () => {
   return (
     <Container>
       <Title>Add Portfolio</Title>
-      {
-        isLoading
-          ? <Loader />
-          :
-          <Section>
-            <Form onSubmit={handleFormSubmit}>
-              <div>Portfolio Title:</div>
-              <Input type="text" value={title} placeholder="Please enter a title" onChange={handleTitleChange} />
-              <AircraftSelect aircraft={aircraft} selectedAircraft={selectedAircraft} checkboxChange={handleCheckboxChange} />
-              
-              <Section>
-                <Button type="submit" disabled={!canSave}>Submit</Button>
-              </Section>
-              
-            </Form>
-          </Section>
-      }
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <Section>
+          <Form onSubmit={handleFormSubmit}>
+            <div>Portfolio Title:</div>
+            <Input
+              type="text"
+              value={title}
+              placeholder="Please enter a title"
+              onChange={handleTitleChange}
+            />
+            <Container>
+              <AircraftSelect
+                aircraft={aircraft}
+                selectedAircraft={selectedAircraft}
+                checkboxChange={handleCheckboxChange}
+              />
+            </Container>
+            <Section>
+              <Button type="submit" disabled={!canSave}>
+                Submit
+              </Button>
+              {
+                !canSave &&
+                <p>The minimum requirements for a Portfolio is a Title</p>
+              }
+            </Section>
+          </Form>
+        </Section>
+      )}
     </Container>
   );
 };

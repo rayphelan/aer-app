@@ -54,6 +54,9 @@ export const FlightDataGenerator = () => {
   return (
     <Container>
       <Title>Flight Data Generator</Title>
+      <Section>
+        <p>Click on a flight to generate random data</p>
+      </Section>
       {isLoading ? (
         <Loader />
       ) : (

@@ -66,17 +66,20 @@ export const DeletePortfolio = ({ match }) => {
             
             <Form onSubmit={handleFormSubmit}>
               <DeleteButton type="submit">Delete Portfolio</DeleteButton>
-              <p>Click here if you wish to cancel</p>
+              <Section>
+                <p>Click here if you wish to cancel</p>
+              </Section>
             <Links to="/portfolios">Do not delete</Links>
             </Form>
 
 
           </Section>
-          
-          <Title>{portfolio?.title}</Title>
-          <Section>
-              <AircraftView aircraft={portfolio?.selectedAircraft} />
-          </Section>
+          <Container>
+            <Title>{portfolio?.title}</Title>
+            <Section>
+                <AircraftView aircraft={portfolio?.selectedAircraft} />
+            </Section>
+          </Container>
         </>
     }
   </Container>

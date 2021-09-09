@@ -47,11 +47,8 @@ export const Navbar = () => {
         <Links to="/portfolios" activeClassName={activeClassName}>
           Portfolios
         </Links>
-        <Links to="/add-portfolio" activeClassName={activeClassName}>
-          Add Portfolio
-        </Links>
         <Links to="/flight-data-generator" activeClassName={activeClassName}>
-          Generate Flight Data
+          Flight Data Generator
         </Links>
       </div>
     </Nav>

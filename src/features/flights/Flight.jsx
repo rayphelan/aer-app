@@ -10,11 +10,13 @@ const White = styled.span`
 const StyledContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 1rem;
-  margin: 0.5rem;
+  padding: 0.5rem 1rem;
+  margin: 0.2rem 0;
   width: 50%;
   border: 1px solid #222;
+  border-radius: 2px;
   background-color: black;
+  font-size: 0.8rem;
 `;
 
 const countries = new Intl.DisplayNames(['en'], {type: 'region'});
