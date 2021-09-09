@@ -25,7 +25,7 @@ export const ViewPortfolio = ({ match }) => {
       <Title>{title}</Title>
       <Section>
         <AircraftView aircraft={selectedAircraft} />
-        <Chart />
+        <Chart portfolio={portfolio} />
       </Section>
     </Container>
   );

@@ -22,7 +22,6 @@ export const flightsSlice = createSlice({
       const { aircraft, flights, airports } = action.payload;
       const { regCode } = aircraft;
 
-      console.log('aircraft', aircraft);
       const { speed } = aircraft.type;
       const metersPerSecond = kmPerHourToMetersPerSecond(speed);
       console.log('metersPerSecond', metersPerSecond);
@@ -31,16 +30,8 @@ export const flightsSlice = createSlice({
       const departure = getLastAirport(regCode, flights, airports);
       const { airport: departureAirport, timestamp: departureTimestamp } =
         departure;
-      const { lat: lat1, lon: lon1 } = departureAirport;
-
-      console.log(
-        'lat',
-        lat1,
-        'lon',
-        lon1,
-        departureTimestamp,
-        departureAirport
-      );
+      console.log('departureTimestamp', departureTimestamp);
+      console.log(new Date(departureTimestamp));
 
       // // get next airport
       const arrivalAirport = selectRandomAirport(airports);
@@ -64,6 +55,7 @@ export const flightsSlice = createSlice({
         departureTimestamp + aircraftRestTime + timeToTravel;
 
       console.log('arrivalTimestamp', arrivalTimestamp);
+      console.log(new Date(arrivalTimestamp));
 
       // Fake Flight Number
       const flightNumber = `${departureAirport.iata}${arrivalAirport.iata}-${regCode}`;
@@ -74,9 +66,9 @@ export const flightsSlice = createSlice({
         flight_number: flightNumber,
         registration: regCode,
         departure_airport: departureAirport.iata,
-        departure_timestamp: parseInt(departureTimestamp),
+        departure_timestamp: departureTimestamp,
         arrival_airport: arrivalAirport.iata,
-        arrival_timestamp: parseInt(arrivalTimestamp),
+        arrival_timestamp: arrivalTimestamp,
       };
 
       console.log('flight', flight);

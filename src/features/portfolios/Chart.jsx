@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
+import { selectFlights } from '../flights/flightsSlice';
+import { useSelector } from 'react-redux';
 import ApexCharts from 'apexcharts';
-import { Container } from '../../components';
 import styled from 'styled-components';
 
 const ChartContainer = styled.div`
@@ -8,32 +9,84 @@ const ChartContainer = styled.div`
     border-radius: 2px;
     background-color: black;
     padding: 2rem;
-    width: 100%;
-    margin: 1rem auto;
+    width: 60vw;
+    margin: 3rem auto;
 `;
 
-export const Chart = () => {
+const calculateFlightHours = (portfolio, flights) => {
+
+  const portfolioFlights = portfolio.selectedAircraft.map((aircraft) => {
+    return flights.data.filter(({ registration }) => registration === aircraft.regCode);
+  }).flat();
+
+  let result = {};
+
+  portfolioFlights.forEach(({
+    arrival_timestamp,
+    departure_timestamp,
+  }) => {
+    const travelSeconds = arrival_timestamp - departure_timestamp;
+    const secondsDate = new Date(null);
+    secondsDate.setSeconds(travelSeconds);
+    const [hours, minutes, seconds] = secondsDate.toISOString().substr(11, 8).split(':');
+
+    const departureDate = new Date(departure_timestamp);
+    departureDate.setSeconds(0);
+    departureDate.setMinutes(0);
+    departureDate.setHours(0);
+    
+    const dateKey = new Date(departureDate.toDateString()).getTime();
+
+    if (!result[dateKey]) {
+      result[dateKey] = (parseInt(seconds) + (parseInt(minutes) * 60) + (parseInt(hours) * 60 * 60)) / 60 / 60;
+    }
+    else {
+      result[dateKey] += (parseInt(seconds) + (parseInt(minutes) * 60) + (parseInt(hours) * 60 * 60)) / 60 / 60;
+    }
+    
+  });
+
+  const data = Object.entries(result).map(([time, hours]) => {
+    return [parseInt(time), parseInt(hours)];
+  });
+
+  return data;
+
+};
+
+export const Chart = ({ portfolio }) => {
+
+  const flights = useSelector(selectFlights);
 
   useEffect(() => {
+
+    const flightHours = {
+      name: 'Flight Hours',
+      data: calculateFlightHours(portfolio, flights)
+    };
+
+    console.log('flightHours', flightHours)
 
     const options = {
       chart: {
         type: 'line'
       },
-      series: [{
-        name: 'sales',
-        data: [30,40,35,50,49,60,70,91,125]
-      }],
+      series: [
+        {
+          name: 'Flight',
+          data: flightHours.data
+        }
+      ],
       xaxis: {
-        categories: [1991,1992,1993,1994,1995,1996,1997, 1998,1999]
+        type: 'datetime'
       }
-    }
+    };
 
     const chart = new ApexCharts(document.querySelector("#chart"), options);
 
     chart.render();
     
-  }, []);
+  }, [portfolio, flights]);
 
   return (
     <>

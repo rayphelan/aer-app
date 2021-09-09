@@ -39,7 +39,7 @@ export const Flight = ({flight}) => {
   const travelTime = arrivalTimestamp - departureTimestamp;
   const travelDate = new Date(null);
   travelDate.setSeconds(travelTime);
-  const duration = travelDate.toISOString().substr(11, 8)
+  const duration = travelDate.toISOString().substr(11, 8);
   return (
     <StyledContainer>
       <div>
