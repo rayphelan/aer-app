@@ -1,8 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { AircraftView } from '../aircraft/AircraftView';
-
 import { Container, Title, Section } from '../../components';
+import { Chart } from './Chart';
 
 export const ViewPortfolio = ({ match }) => {
   const { portfolioId } = match.params;
@@ -25,6 +25,7 @@ export const ViewPortfolio = ({ match }) => {
       <Title>{title}</Title>
       <Section>
         <AircraftView aircraft={selectedAircraft} />
+        <Chart />
       </Section>
     </Container>
   );
