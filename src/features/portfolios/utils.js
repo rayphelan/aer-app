@@ -8,8 +8,6 @@ export const calculateFlightHours = (portfolio, flights) => {
     .flat();
 
   let result = {};
-  let remainder = 0;
-  let regCodeHours = {};
 
   portfolioFlights.forEach(
     ({ arrival_timestamp, departure_timestamp, registration }) => {
