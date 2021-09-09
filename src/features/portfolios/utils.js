@@ -36,16 +36,8 @@ export const calculateFlightHours = (portfolio, flights) => {
 
       if (!result[dateKey]) {
         result[dateKey] = totalHours;
-        regCodeHours[registration] = totalHours + remainder;
-        remainder = 0;
       } else {
-        regCodeHours[registration] += totalHours;
-        if (regCodeHours[registration] > 24) {
-          remainder = regCodeHours[registration] - 24;
-          result[dateKey] = 24;
-        } else {
-          result[dateKey] += totalHours;
-        }
+        result[dateKey] += totalHours;
       }
     }
   );
