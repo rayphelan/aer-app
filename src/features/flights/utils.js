@@ -25,7 +25,8 @@ export const calculateTime = (meters, metersPerSecond) => {
     'time',
     time
   );
-  return time * 1000;
+  console.log('seconds to travel', time);
+  return time;
 };
 
 // Select Random Airport
