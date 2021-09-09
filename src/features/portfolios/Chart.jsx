@@ -36,12 +36,13 @@ const calculateFlightHours = (portfolio, flights) => {
     departureDate.setHours(0);
     
     const dateKey = new Date(departureDate.toDateString()).getTime();
+    const totalSeconds = (parseInt(seconds) + (parseInt(minutes) * 60) + (parseInt(hours) * 60 * 60)) / 60 / 60;
 
     if (!result[dateKey]) {
-      result[dateKey] = (parseInt(seconds) + (parseInt(minutes) * 60) + (parseInt(hours) * 60 * 60)) / 60 / 60;
+      result[dateKey] = totalSeconds
     }
     else {
-      result[dateKey] += (parseInt(seconds) + (parseInt(minutes) * 60) + (parseInt(hours) * 60 * 60)) / 60 / 60;
+      result[dateKey] += totalSeconds;
     }
     
   });
