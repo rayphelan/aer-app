@@ -7,9 +7,10 @@ git clone https://github.com/rayphelan/aer-app.git
 
 ```
 
-Instal Dependencies
+Change to cloned directory and instal dependencies
 
 ```
+cd aer-app
 npm i
 ```
 
