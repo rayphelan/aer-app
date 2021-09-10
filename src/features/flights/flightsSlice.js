@@ -24,18 +24,18 @@ export const flightsSlice = createSlice({
 
       const { speed } = aircraft.type;
       const metersPerSecond = kmPerHourToMetersPerSecond(speed);
-      console.log('metersPerSecond', metersPerSecond);
+      // console.log('metersPerSecond', metersPerSecond);
 
       // get last airport or random airport for aircraft
       const departure = getLastAirport(regCode, flights, airports);
       const { airport: departureAirport, timestamp: departureTimestamp } =
         departure;
       console.log('departureTimestamp', departureTimestamp);
-      console.log(new Date(departureTimestamp));
+      const DEPDATE = new Date(departureTimestamp);
+      console.log('DEPDATE', DEPDATE);
 
       // // get next airport
       const arrivalAirport = selectRandomAirport(airports);
-      console.log('arrivalAirport', arrivalAirport);
 
       // calculate distance
       const distance = calculateDistance(
@@ -44,22 +44,37 @@ export const flightsSlice = createSlice({
         arrivalAirport.lat,
         arrivalAirport.lon
       );
-      console.log('distance', distance);
 
       // Calculate Time to Travel
-      const timeToTravel = calculateTime(distance, metersPerSecond);
-      console.log('time', timeToTravel);
+      const secondsToTravel = calculateTime(distance, metersPerSecond) * 1000;
+      console.log('seconds to travel', secondsToTravel);
 
-      const aircraftRestTime = 3600; // 1 hour
-      const arrivalTimestamp =
-        departureTimestamp + aircraftRestTime + timeToTravel;
-
+      const arrdate = new Date(departureTimestamp);
+      const arrivalTimestamp = arrdate.getTime() + secondsToTravel;
+      const ARRDATE = new Date(arrivalTimestamp);
       console.log('arrivalTimestamp', arrivalTimestamp);
-      console.log(new Date(arrivalTimestamp));
+      console.log('ARRIVAL', ARRDATE);
+
+      const travelSeconds =
+        (new Date(arrivalTimestamp).getTime() -
+          new Date(departureTimestamp).getTime()) /
+        1000;
+
+      console.log(
+        'traveSeconds',
+        travelSeconds,
+        travelSeconds / 60,
+        travelSeconds / 60 / 60
+      );
+
+      const travelDate = new Date(null);
+      travelDate.setSeconds(travelSeconds);
+      const duration = travelDate.toISOString().substr(11, 8);
+      console.log('DURATION', duration);
 
       // Fake Flight Number
       const flightNumber = `${departureAirport.iata}${arrivalAirport.iata}-${regCode}`;
-      console.log('flightNumber', flightNumber);
+      // console.log('flightNumber', flightNumber);
 
       // push object to state
       const flight = {
@@ -70,8 +85,6 @@ export const flightsSlice = createSlice({
         arrival_airport: arrivalAirport.iata,
         arrival_timestamp: arrivalTimestamp,
       };
-
-      console.log('flight', flight);
 
       state.data.push(flight);
     },

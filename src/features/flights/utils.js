@@ -17,16 +17,15 @@ export const calculateDistance = (lat1, lon1, lat2, lon2) => {
 // Calculate time to travel distance
 export const calculateTime = (meters, metersPerSecond) => {
   const time = meters / metersPerSecond;
-  console.log(
-    'meters',
-    meters,
-    'metersPerSecond',
-    metersPerSecond,
-    'time',
-    time
-  );
-  console.log('seconds to travel', time);
-  return time;
+  // console.log(
+  //   'meters',
+  //   meters,
+  //   'metersPerSecond',
+  //   metersPerSecond,
+  //   'time',
+  //   time
+  // );
+  return parseInt(time);
 };
 
 // Select Random Airport

@@ -32,14 +32,18 @@ export const Flight = ({flight}) => {
     arrival_timestamp: arrivalTimestamp,
   } = flight;
 
-  console.log('flight', flight);
   const airports = useSelector(selectAirports);
   const departureAirportDetails = airports.data.find(airport => airport.iata === departureAirport);
   const arrivalAirportDetails = airports.data.find(airport => airport.iata === arrivalAirport);
-  const travelTime = arrivalTimestamp - departureTimestamp;
-  const travelDate = new Date(null);
-  travelDate.setSeconds(travelTime);
-  const duration = travelDate.toISOString().substr(11, 8);
+  
+  const travelSeconds =
+  (new Date(arrivalTimestamp).getTime() -
+    new Date(departureTimestamp).getTime()) /
+  1000;
+  const secondsDate = new Date(null);
+  secondsDate.setSeconds(travelSeconds);
+  const duration = secondsDate.toISOString().substr(11, 8);
+
   return (
     <StyledContainer>
       <div>
@@ -49,7 +53,13 @@ export const Flight = ({flight}) => {
         <White>Departure:</White> {departureAirportDetails.name} - {countries.of(departureAirportDetails.iso)}
       </div>
       <div>
+        <White>Departure Time</White> {new Date(departureTimestamp).toString()}
+      </div>
+      <div>
         <White>Arrival:</White> {arrivalAirportDetails.name} - {countries.of(arrivalAirportDetails.iso)}
+      </div>
+      <div>
+        <White>Arrival Time</White> {new Date(arrivalTimestamp).toString()}
       </div>
       <div>
         <White>Duration:</White> {duration}

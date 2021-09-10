@@ -47,10 +47,6 @@ export const FlightDataGenerator = () => {
     );
   }, [airports, aircraft, dispatch]);
 
-  useEffect(() => {
-    console.log('flights', flights);
-  }, [flights]);
-
   return (
     <Container>
       <Title>Flight Data Generator</Title>
